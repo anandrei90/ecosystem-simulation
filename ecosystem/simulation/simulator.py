@@ -20,6 +20,20 @@ class Simulation:
         step_size: int = 5,
         verbose: bool = False
     ):
+        """
+        Initialize a simulation.
+
+        Parameters:
+        ----------
+        environment: Environment
+            Environment to be simulated.
+        max_ticks: int
+            Number ot time steps of the simulations.
+        step_size: int
+            I think this parameter is useless...
+        verbose: bool
+            Controls verbosity of the simulation.
+        """
         self.environment = environment
         self.max_ticks = max_ticks
         if step_size >= 1:
