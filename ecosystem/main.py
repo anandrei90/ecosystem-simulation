@@ -26,7 +26,6 @@ def main():
     sim = Simulation(
         environment=env,
         max_ticks=20,
-        step_size=5,
         verbose=True,
     )
 
