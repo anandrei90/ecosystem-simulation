@@ -12,7 +12,7 @@ class Simulation:
     High-level simulation controller.
     Responsible for orchestrating environment ticks and controlling runtime.
     """
-
+    # TODO: get rid of step_size b/c confusing
     def __init__(
         self,
         environment: Environment,
