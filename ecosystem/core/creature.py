@@ -14,8 +14,19 @@ class Creature(Entity):
 
     # TODO: validate inputs with Pydantic
     def __init__(self, position: Tuple[int, int], energy: float = 100.0):
+        """
+        Initialize a new creature of age 0.
+
+        Parameters:
+        ----------
+        position: Tuple[int, int]
+            (x, y) coordinates of the entity.
+        energy: float
+            Controls ability to move and reproduce.
+            Get replenished through eating.
+        """
         super().__init__(position)
-        self.energy: float = energy  # for moving/reproduction
+        self.energy: float = energy
         self.age: int = 0
 
     def move(self) -> None:
