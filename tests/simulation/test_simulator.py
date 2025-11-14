@@ -19,7 +19,7 @@ class TestSimulation(unittest.TestCase):
 
         self.env.add_entity(self.plant)
         self.env.add_entity(self.creature)
-        # Might need to override self.sim in subsequent tests
+
         self.sim = Simulation(environment=self.env)
 
     def tearDown(self):
@@ -33,18 +33,30 @@ class TestSimulation(unittest.TestCase):
         """Simulation should initialize with correct attributes."""
         self.assertEqual(self.sim.environment, self.env)
         self.assertEqual(self.sim.max_ticks, 20)
-        self.assertEqual(self.sim.step_size, 5)
         self.assertFalse(self.sim.verbose)
 
     @unittest.expectedFailure
-    def test_negative_step_size_raises_error(self):
+    def test_negative_ticks_raises_error(self):
         """
-        Initializing a Simulation with negative step size should
+        Initializing a Simulation with negative number of steps should
         throw an error.
         """
-        Simulation(environment=self.env, step_size=-1)
+        Simulation(environment=self.env, max_ticks=-1)
 
-    # TODO: add tests
+    def test_simulation_runs_till_end(self):
+        """Simulation should run for `max_ticks` time steps."""
+        self.sim.run()
+        self.assertEqual(self.env.tick_count, self.sim.max_ticks)
+
+    def test_verbose_true_works(self):
+        """Simulation should run without error when verbose=True."""
+        self.sim = Simulation(environment=self.env, verbose=True)
+        try:
+            self.sim.run()
+        except Exception as e:
+            self.fail(
+                f"Simulation.run() raised an exception with verbose=True: {e}"
+                )
 
 
 if __name__ == "__main__":
