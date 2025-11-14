@@ -1,3 +1,8 @@
+"""
+simulator.py - defines the Simulation class.
+
+A simulation takes care of time evolution inside an environment.
+"""
 
 from ecosystem.core.environment import Environment
 
@@ -7,7 +12,7 @@ class Simulation:
     High-level simulation controller.
     Responsible for orchestrating environment ticks and controlling runtime.
     """
-    # TODO: take care of step_size <= 0
+
     def __init__(
         self,
         environment: Environment,
@@ -17,7 +22,10 @@ class Simulation:
     ):
         self.environment = environment
         self.max_ticks = max_ticks
-        self.step_size = step_size
+        if step_size >= 1:
+            self.step_size = step_size
+        else:
+            raise ValueError("Step size should be greater than or equal to 1.")
         self.verbose = verbose
 
     def run(self) -> None:
