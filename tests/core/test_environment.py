@@ -25,7 +25,7 @@ class TestEnvironment(unittest.TestCase):
         del self.plant3
         del self.plant4
 
-    def test_entity_initialization(self):
+    def test_environment_initialization(self):
         """Environment should initialize with correct attributes."""
         self.assertEqual(self.env.width, 10)
         self.assertEqual(self.env.height, 20)
