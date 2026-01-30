@@ -19,7 +19,7 @@ class Entity(ABC):
 
     """Abstract base class for all entities in the ecosystem."""
 
-    def __init__(self, position: Tuple[int, int], env: "Environment") -> None:
+    def __init__(self, position: Tuple[int, int]) -> None:
         """
         Initialize a new entity.
 
@@ -27,14 +27,15 @@ class Entity(ABC):
         ----------
         position: Tuple[int, int]
             (x, y) coordinates of the entity.
-        env: Environment
+        env: Environment or None
             Environment in which the entity lives.
         """
         # unique ID attributed at creation
         self.id: str = str(uuid.uuid4())
         self.position: Tuple[int, int] = position
         self.alive: bool = True
-        self.env: "Environment" = env
+        # assign self.env when calling env.add_entity()
+        self.env: "Environment | None" = None
 
     # enforces the update method for all subclasses
     @abstractmethod
