@@ -5,15 +5,19 @@ Plants are stationary entities that can grow over time.
 For now, we only define structure and placeholder methods.
 """
 
-from typing import Tuple
-from .entity import Entity
+from typing import Tuple, TYPE_CHECKING
+from ecosystem.core.entity import Entity
+
+# import Environment only for type checking purposes and not at runtime
+# avoids potential circular imports in the future
+if TYPE_CHECKING:
+    from ecosystem.core.environment import Environment
 
 
 class Plant(Entity):
     """Represents a plant in the ecosystem."""
 
-    # TODO: validate inputs with Pydantic
-    def __init__(self, position: Tuple[int, int]):
+    def __init__(self, position: Tuple[int, int], env: "Environment"):
         """
         Initialize a new plant of size 1.
 
@@ -22,7 +26,7 @@ class Plant(Entity):
         position: Tuple[int, int]
             (x, y) coordinates of the entity.
         """
-        super().__init__(position)
+        super().__init__(position, env)
         self.size: int = 1  # metric for plant growth
 
     def grow(self) -> None:

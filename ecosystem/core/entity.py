@@ -6,15 +6,20 @@ and an `update()` method that defines how it behaves each tick.
 """
 
 from abc import ABC, abstractmethod
-from typing import Tuple
+from typing import Tuple, TYPE_CHECKING
 import uuid
+
+# import Environment only for type checking purposes and not at runtime
+# avoids potential circular imports in the future
+if TYPE_CHECKING:
+    from ecosystem.core.environment import Environment
 
 
 class Entity(ABC):
 
     """Abstract base class for all entities in the ecosystem."""
 
-    def __init__(self, position: Tuple[int, int]) -> None:
+    def __init__(self, position: Tuple[int, int], env: "Environment") -> None:
         """
         Initialize a new entity.
 
@@ -22,11 +27,14 @@ class Entity(ABC):
         ----------
         position: Tuple[int, int]
             (x, y) coordinates of the entity.
+        env: Environment
+            Environment in which the entity lives.
         """
         # unique ID attributed at creation
         self.id: str = str(uuid.uuid4())
         self.position: Tuple[int, int] = position
         self.alive: bool = True
+        self.env: "Environment" = env
 
     # enforces the update method for all subclasses
     @abstractmethod
