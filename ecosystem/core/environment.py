@@ -31,8 +31,16 @@ class Environment:
 
     def add_entity(self, entity) -> None:
         """Add an entity to the environment."""
-        # TODO: check if entity is spawned within bounds
-        self.entity_dict.update({entity.id: entity})
+
+        # assign env parameter to created entity
+        entity.env = self
+
+        # check if entity is spawned within bounds
+        x, y = entity.position
+        if 0 <= x <= self.height-1 and 0 <= y <= self.width-1:
+            self.entity_dict.update({entity.id: entity})
+        else:
+            raise IndexError("Entity placed outside the bounds of the env.")
 
     def remove_entity(self, entity) -> None:
         """Remove an entity from the environment."""
