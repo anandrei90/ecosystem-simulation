@@ -37,6 +37,7 @@ class Environment:
 
         # check if entity is spawned within bounds
         x, y = entity.position
+        # use 0 indexing to harmonize with python indexing
         if 0 <= x <= self.height-1 and 0 <= y <= self.width-1:
             self.entity_dict.update({entity.id: entity})
         else:
