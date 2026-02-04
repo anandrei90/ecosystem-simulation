@@ -23,6 +23,7 @@ class Plant(Entity):
         """
         super().__init__(position)
         self.size: int = 1  # metric for plant growth
+        self.max_size = 10
 
     def grow(self) -> None:
         """Increase plant size by 1."""
@@ -30,7 +31,7 @@ class Plant(Entity):
 
     def update(self) -> None:
         """
-        Update plant state for each time step (currently does nothing).
+        Update plant state for each time step.
         """
-        # TODO: handle growth, decay etc.
-        pass
+        if self.size < self.max_size:
+            self.grow()
