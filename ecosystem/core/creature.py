@@ -28,9 +28,11 @@ class Creature(Entity):
         self.energy: float = energy
         self.age: int = 0
 
-    def move(self) -> None:
-        """Placeholder for future movement logic."""
-        pass
+    def move(self, dx: int, dy: int) -> None:
+        """
+        Moves the creature from (x, y) to (x+dx, y+dy).
+        """
+        self.position = (self.position[0] + dx, self.position[1] + dy)
 
     def eat(self) -> None:
         """Placeholder for future eating behaviour."""
