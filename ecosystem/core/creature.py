@@ -41,7 +41,7 @@ class Creature(Entity):
 
     def eat(self, plant: "Plant") -> None:
         """
-        Controls eating behaviour.
+        Control eating behaviour.
         """
         # TODO: check isinstance(plant, Plant)?
         self.energy += 10.0  # creature acquires energy by eating
