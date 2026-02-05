@@ -5,8 +5,13 @@ Creatures are moving entities capable of movement, feeding, and reproduction.
 For now, we only define structure and placeholder methods.
 """
 
-from typing import Tuple
+from typing import Tuple, TYPE_CHECKING
 from ecosystem.core.entity import Entity
+
+# import Environment only for type checking purposes and not at runtime
+# avoids potential circular imports in the future
+if TYPE_CHECKING:
+    from ecosystem.core.plant import Plant
 
 
 class Creature(Entity):
@@ -34,9 +39,14 @@ class Creature(Entity):
         """
         self.position = (self.position[0] + dx, self.position[1] + dy)
 
-    def eat(self) -> None:
-        """Placeholder for future eating behaviour."""
-        pass
+    def eat(self, plant: "Plant") -> None:
+        """
+        Placeholder for future eating behaviour.
+        """
+        # TODO: check isinstance(plant, Plant)?
+        self.energy += 10.0  # creature acquires energy by eating
+        # part of the plant gets eaten
+        plant.get_eaten()  # encapsulation: let Plant alter its own state
 
     def reproduce(self) -> None:
         """Placeholder for future reproducing behaviour."""

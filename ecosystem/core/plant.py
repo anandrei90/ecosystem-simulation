@@ -29,6 +29,12 @@ class Plant(Entity):
         """Increase plant size by 1."""
         self.size += 1
 
+    def get_eaten(self) -> None:
+        """
+        Controls what happens when a plant gets eaten.
+        """
+        self.size -= 1
+
     def update(self) -> None:
         """
         Update plant state for each time step.
