@@ -35,9 +35,11 @@ class Creature(Entity):
 
     def move(self, dx: int, dy: int) -> None:
         """
-        Moves the creature from (x, y) to (x+dx, y+dy).
+        Moves the creature from (x, y) to (x+dx, y+dy) and substracts
+        the energy necessary for moving.
         """
         self.position = (self.position[0] + dx, self.position[1] + dy)
+        self.energy -= 2
 
     def eat(self, plant: "Plant") -> None:
         """
