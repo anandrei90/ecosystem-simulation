@@ -27,7 +27,7 @@ class Creature(Entity):
             (x, y) coordinates of the entity.
         energy: float
             Controls ability to move and reproduce.
-            Get replenished through eating.
+            Gets replenished through eating.
         """
         super().__init__(position)
         self.energy: float = energy
@@ -49,8 +49,14 @@ class Creature(Entity):
         plant.get_eaten()  # encapsulation: let Plant alter its own state
 
     def reproduce(self) -> None:
-        """Placeholder for future reproducing behaviour."""
-        pass
+        """
+        Creature reproduces if it has enough energy.
+        """
+        if self.energy >= 150 and self.env:
+            self.env.add_entity(
+                Creature(position=self.position)
+            )
+            self.energy -= 50
 
     def update(self) -> None:
         """
