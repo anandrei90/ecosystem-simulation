@@ -43,7 +43,7 @@ class Creature(Entity):
 
     def eat(self, plant: "Plant") -> None:
         """
-        Control eating behaviour.
+        Controls eating behaviour.
         """
         # TODO: check isinstance(plant, Plant)?
         self.energy += 10.0  # creature acquires energy by eating
@@ -54,7 +54,7 @@ class Creature(Entity):
         """
         Creature reproduces if it has enough energy.
         """
-        if self.energy >= 150 and self.env:
+        if self.env:  # check if env is None
             self.env.add_entity(
                 Creature(position=self.position)
             )
@@ -64,5 +64,13 @@ class Creature(Entity):
         """
         Update creature state for each time step.
         """
-        # TODO: handle movement, eating, reproduction
-        self.age += 1
+        self.age += 1  # aging
+        # movement
+
+        # TODO: write check_collision method
+        # eating
+        # if self.env.check_collision(self, plant: "Plant"):
+        #     self.eat(plant)
+        # reproduction
+        if self.energy >= 150:
+            self.reproduce()
