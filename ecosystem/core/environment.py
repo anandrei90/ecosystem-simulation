@@ -5,7 +5,7 @@ The enviroment is a 2D space where various entities can evolve
 and interact with each other.
 """
 
-from typing import Dict
+from typing import Dict, Tuple
 from ecosystem.utils.helpers import shuffle_dictionary
 
 
@@ -29,19 +29,27 @@ class Environment:
         self.entity_dict: Dict = {}  # Holds all active entities
         # self.is_running: bool = False  # Maybe needed later?
 
+    def in_bounds(self, position: Tuple[int, int]) -> bool:
+        """
+        Checks if a certain 2D position (x, y) lies inside the environment.
+        """
+        x, y = position
+        return 1 <= x <= self.width and 1 <= y <= self.height
+
+    def entity_coordinates(self, entity_type) -> None:
+        pass
+
     def add_entity(self, entity) -> None:
         """Add an entity to the environment."""
 
+        # check if entity is spawned within bounds
+        if not self.in_bounds(entity.position):
+            raise IndexError("Entity placed outside of the environment.")
+
         # assign env parameter to created entity
         entity.env = self
-
-        # check if entity is spawned within bounds
-        x, y = entity.position
-        # use 0 indexing to harmonize with python indexing
-        if 0 <= x <= self.height-1 and 0 <= y <= self.width-1:
-            self.entity_dict.update({entity.id: entity})
-        else:
-            raise IndexError("Entity placed outside the bounds of the env.")
+        # add entity to dictionary
+        self.entity_dict.update({entity.id: entity})
 
     def remove_entity(self, entity) -> None:
         """Remove an entity from the environment."""
@@ -52,9 +60,10 @@ class Environment:
         """Advance the simulation by one time step."""
 
         for entity_id in self.entity_dict:
-            self.entity_dict[entity_id].update()  # Update all entities
+            self.entity_dict[entity_id].update()  # update all entities
 
-        self.tick_count += 1  # Push time forward by 1 unit
+        self.tick_count += 1  # push time forward by 1 unit
+        # shuffle entity order to mitigate biases
         self.entity_dict = shuffle_dictionary(self.entity_dict, seed=10)
 
     def run(self, steps: int) -> None:
