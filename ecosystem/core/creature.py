@@ -38,8 +38,12 @@ class Creature(Entity):
         Moves the creature from (x, y) to (x+dx, y+dy) and substracts
         the energy necessary for moving.
         """
-        self.position = (self.position[0] + dx, self.position[1] + dy)
+        old_position = self.position
+        self.position = (old_position[0] + dx, old_position[1] + dy)
         self.energy -= 2
+
+        if self.env:
+            self.env.move_entity(self.id, old_position, self.position)
 
     def eat(self, plant: "Plant") -> None:
         """
